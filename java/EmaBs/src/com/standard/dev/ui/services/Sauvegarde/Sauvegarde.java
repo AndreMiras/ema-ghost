@@ -16,6 +16,7 @@ import com.standard.architecture.ui.service.Service;
 import com.standard.architecture.ui.service.ServiceInterface;
 import com.standard.dev.ui.sequences.CreateSaveCompletSequence;
 import com.standard.dev.ui.sequences.CreateSaveDiffSequence;
+import com.standard.dev.ui.services.LanceRestauration.LrsEspace;
 import com.standard.dev.ui.services.Restauration.RstEspace;
 
 public class Sauvegarde  extends Service implements ServiceInterface{
@@ -78,10 +79,10 @@ public class Sauvegarde  extends Service implements ServiceInterface{
 					List<CreateSaveDiffSequence> sequence = new ArrayList<CreateSaveDiffSequence>();
 					CreateSaveDiffSequence uneCreateSaveDiffSequence = new CreateSaveDiffSequence();
 
-					uneCreateSaveDiffSequence.setCours(((RstEspace)this.getJFrameS().getPnl_espace()).getCours());
-					uneCreateSaveDiffSequence.setDistribution(((RstEspace)this.getJFrameS().getPnl_espace()).getDistribution());
-					uneCreateSaveDiffSequence.setNom(((RstEspace)this.getJFrameS().getPnl_espace()).getNom());
-					uneCreateSaveDiffSequence.setPromotion(((RstEspace)this.getJFrameS().getPnl_espace()).getPromotion());
+					uneCreateSaveDiffSequence.setCours(((SvgEspace)this.getJFrameS().getPnl_espace()).getCours());
+					uneCreateSaveDiffSequence.setDistribution(((SvgEspace)this.getJFrameS().getPnl_espace()).getDistribution());
+					uneCreateSaveDiffSequence.setNom(((SvgEspace)this.getJFrameS().getPnl_espace()).getNom());
+					uneCreateSaveDiffSequence.setPromotion(((SvgEspace)this.getJFrameS().getPnl_espace()).getPromotion());
 					
 					sequence.add(uneCreateSaveDiffSequence);
 					decharger();
@@ -93,6 +94,95 @@ public class Sauvegarde  extends Service implements ServiceInterface{
 		{
 			decharger();
 			result = new MessageInterService("prc","svg",1,null);
+		}
+		if(e.equals("cmb_promo"))
+		{
+			if(((SvgEspace)this.getJFrameS().getPnl_espace()).getPromotion().equals(""))
+			{
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.setEnabled(false);
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.vide();		
+				ArrayList<String> e2 = new ArrayList<String>();
+		        e2.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox2.listToCombo(e2);
+		        
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.setEnabled(false);
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.vide();		
+				ArrayList<String> e3 = new ArrayList<String>();
+		        e3.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.listToCombo(e3);
+
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.setEnabled(false);
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.vide();
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jButton6.setEnabled(false);				
+				ArrayList<String> e4 = new ArrayList<String>();
+		        e4.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.listToCombo(e4);
+		    }else
+			{
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox2.setEnabled(true);
+				
+				ArrayList<String> e2 = new ArrayList<String>();
+		        e2.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.setEnabled(false);
+				
+				ArrayList<String> e3 = new ArrayList<String>();
+		        e3.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.listToCombo(e3);
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).remplisCombosCours();
+				
+			}
+		}
+		if(e.equals("cmb_cours"))
+		{
+			if(((SvgEspace)this.getJFrameS().getPnl_espace()).getCours().equals(""))
+			{
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.setEnabled(false);
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.vide();		
+				ArrayList<String> e3 = new ArrayList<String>();
+		        e3.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.listToCombo(e3);
+
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.setEnabled(false);
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.vide();
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jButton6.setEnabled(false);				
+				ArrayList<String> e4 = new ArrayList<String>();
+		        e4.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.listToCombo(e4);
+		    }else
+			{
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.setEnabled(true);
+				
+				ArrayList<String> e3 = new ArrayList<String>();
+		        e3.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox3.listToCombo(e3);
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).remplisCombosDistribution();				
+			}
+		}
+		if(e.equals("cmb_iso"))
+		{
+			if(((SvgEspace)this.getJFrameS().getPnl_espace()).getDistribution().equals(""))
+			{		    
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.setEnabled(false);
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.vide();
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jButton6.setEnabled(false);				
+				ArrayList<String> e4 = new ArrayList<String>();
+		        e4.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.listToCombo(e4);
+		    }else
+			{
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.setEnabled(true);	
+				((SvgEspace)this.getJFrameS().getPnl_espace()).jButton6.setEnabled(true);	
+				ArrayList<String> e4 = new ArrayList<String>();
+		        e4.add("");
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4.listToCombo(e4);
+		        ((SvgEspace)this.getJFrameS().getPnl_espace()).remplisCombosNom();				
+			}
+		}
+		if(e.equals("btn_plus"))
+		{
+			List<Object> message = new ArrayList<Object>();
+			message.add(((SvgEspace)this.getJFrameS().getPnl_espace()).jComboBox4);
+			result = new MessageInterService("acb","svg",2,message);
 		}
 		return result;					
 	}

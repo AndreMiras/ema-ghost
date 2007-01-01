@@ -37,14 +37,14 @@ public abstract class Controler implements ActionListener, Controler_Interface{
 		charger( new  MessageInterService(this.current_Service_name));
 	}
 	/*
-	 * Méthodes
+	 * Mï¿½thodes
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		boolean sortie = false;
 		AbstractMessage result;
-		/*si l'évenement n'est pas du Service courrant*/
+		/*si l'ï¿½venement n'est pas du Service courrant*/
 		if(!current_Service_name.equals(e.getActionCommand().substring(0,3)))
 		{	
 			if(decharger())
@@ -67,10 +67,10 @@ public abstract class Controler implements ActionListener, Controler_Interface{
 				sortie = true;
 			}
 		}		
-		/* Si l'évenement est du Service courant ou si on a changer de modul*/
+		/* Si l'ï¿½venement est du Service courant ou si on a changer de modul*/
 		if(!sortie)
 		{
-			/* on redirige le message vers le Service concerné et on récupere l'abstracMessage de l'action*/
+			/* on redirige le message vers le Service concernï¿½ et on rï¿½cupere l'abstracMessage de l'action*/
 			result = ((ServiceInterface) this.htable.get(current_Service_name)).action(e.getActionCommand().substring(4));
 			/*
 			 * result va permettre de savoir si l'action neccessite un changement de page
@@ -169,6 +169,7 @@ public abstract class Controler implements ActionListener, Controler_Interface{
 		// TODO Auto-generated method stub
 		String service_name = ((MessageInterService)abstractMessage).getnameCible();
 		((Service) this.htable.get(service_name)).setAbstractMessage(abstractMessage);
+		((Service) this.htable.get(service_name)).setControler(this);
 		this.frame.setErreur("");
 		return ((ServiceInterface) this.htable.get(service_name)).init();
 	}

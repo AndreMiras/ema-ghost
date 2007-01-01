@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 
 import com.standard.architecture.business.util.properties.*;
 import com.standard.architecture.ui.Controler;
+import com.standard.dev.ui.ConfigurationSetting;
 
 
 public class JLabelErreurS extends JLabel{
@@ -25,8 +26,9 @@ public class JLabelErreurS extends JLabel{
 		
 		if(!name.isEmpty() && !name.equals(""))
 		{
-			Ressource resL = new Ressource(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"Erreur.properties");
-			Ressource resP = new Ressource(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"button.properties");
+			ConfigurationSetting config = new ConfigurationSetting();
+			Ressource resL = new Ressource(config.getChemin_dossier_configuration()+"configuration"+config.getSeparateur_dossier()+"Erreur.properties");
+			Ressource resP = new Ressource(config.getChemin_dossier_configuration()+"configuration"+config.getSeparateur_dossier()+"button.properties");
 			
 			this.setName(name);
 			
@@ -43,9 +45,9 @@ public class JLabelErreurS extends JLabel{
 			{
 				if(!resP.getProperty(name + ".icon").isEmpty())
 				{
-					if((new File(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"img"+controleur.getConfiguration().getSeparateur_dossier()+"" +resP.getProperty(name + ".icon")).exists()))
+					if((new File(config.getChemin_dossier_configuration()+"configuration"+config.getSeparateur_dossier()+"img"+config.getSeparateur_dossier()+"" +resP.getProperty(name + ".icon")).exists()))
 					{
-						Icon imgicon = new ImageIcon(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"img"+controleur.getConfiguration().getSeparateur_dossier()+"" +resP.getProperty(name + ".icon"));
+						Icon imgicon = new ImageIcon(config.getChemin_dossier_configuration()+"configuration"+config.getSeparateur_dossier()+"img"+config.getSeparateur_dossier()+"" +resP.getProperty(name + ".icon"));
 						this.setIcon(imgicon);
 					}
 				}
