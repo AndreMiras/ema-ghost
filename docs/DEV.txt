@@ -1,0 +1,3 @@
+= Developer Documentation =
+
+$ pyuic4 -x MyApp.ui -o MyApp.py 
