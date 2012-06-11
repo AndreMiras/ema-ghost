@@ -3,8 +3,39 @@
 import sys
 from PyQt4 import QtCore, QtGui
 from forms.home_screen_widget import Ui_Form as HomeScreenWidgetUi
+from forms.restore_widget import Ui_Form as RestoreWidgetUi
 from forms.main_window import Ui_MainWindow as MainWindowUi
-# from controller import Controller
+
+
+class RestoreWidget(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(RestoreWidget, self).__init__(parent)
+        self.ui = RestoreWidgetUi()
+        self.ui.setupUi(self)
+        self.set_up_signals_slots()
+        self.fill_up_listbox()
+
+    def set_up_signals_slots(self):
+        QtCore.QObject.connect(self.ui.downloadButton,
+            QtCore.SIGNAL("clicked()"), self.download_selected_items)
+
+
+    def fill_up_listbox(self):
+        items = [
+            "Ubuntu-desktop.ISO",
+            "Ubuntu-server.ISO",
+            "BT5R2.ISO",
+            "install-amd64-min.ISO",
+        ]
+        for item in items:
+            QtGui.QListWidgetItem(item, self.ui.remoteListWidget);
+
+    def download_selected_items(self):
+        selected_items = self.ui.remoteListWidget.selectedItems()
+        for item in selected_items:
+            cloned_item = item.clone()
+            self.ui.localListWidget.addItem(cloned_item)
+
 
 
 class HomeScreenWidget(QtGui.QWidget):
@@ -13,7 +44,9 @@ class HomeScreenWidget(QtGui.QWidget):
         self.ui = HomeScreenWidgetUi()
         self.ui.setupUi(self)
         QtCore.QObject.connect(self.ui.backupButton,
-            QtCore.SIGNAL("clicked()"), parent.demo_action)
+            QtCore.SIGNAL("clicked()"), parent.show_back_up_widget)
+        QtCore.QObject.connect(self.ui.restoreButton,
+            QtCore.SIGNAL("clicked()"), parent.show_restore_widget)
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -25,26 +58,16 @@ class MainWindow(QtGui.QMainWindow):
         centralWidget = HomeScreenWidget(self)
         self.setCentralWidget(centralWidget)
 
-        """
-        QWidget *firstPageWidget = new QWidget;
-        QWidget *secondPageWidget = new QWidget;
-        QWidget *thirdPageWidget = new QWidget;
-
-        QStackedLayout *stackedLayout = new QStackedLayout;
-        stackedLayout->addWidget(firstPageWidget);
-        stackedLayout->addWidget(secondPageWidget);
-        stackedLayout->addWidget(thirdPageWidget);
-
-        QVBoxLayout *mainLayout = new QVBoxLayout;
-        mainLayout->addLayout(stackedLayout);
-        setLayout(mainLayout);
-        """
-
-    def setMainWidget(self):
-        self.scrollLayout.addRow(Test())
-
     def demo_action(self):
         print("demo")
+
+    def show_back_up_widget(self):
+        print("TODO")
+
+    def show_restore_widget(self):
+        print("TODO")
+        restore_widget = RestoreWidget(self)
+        self.setCentralWidget(restore_widget)
 
 
 if __name__ == "__main__":
