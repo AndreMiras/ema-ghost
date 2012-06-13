@@ -2,14 +2,15 @@
 # affiche_param.sh
 #$1 : directory to backup
 #$2 : Output directory
-#$3 : ISO's name 
+#$3 : ISO's name
+#$4 : Mode [none = classic save] [-diff = differential save] [-rest = Restore mode] 
 
 
 
 dir1=$1
 dir2=$2
 name=$3
-var="$*"
+num=$#
 restore=false
 differential=false
 
@@ -30,12 +31,29 @@ while [ $# -gt 0 ] ;
 
 
 if [ $restore = 'true' ]
-then
- 	 echo "mondorestore"
-else if [ $differential = 'true' ]
-		then 
-    	 echo "mondoarchive -O -i -I \"$dir1\" -d \"$dir2\" -p \"$name\" -s 4g -W -D"
-    	else
-    	 echo "mondoarchive -O -i -I \"$dir1\" -d \"$dir2\" -p \"$name\" -s 4g -W"
-     fi
+	then
+		 	if [ $num -eq 1 ]
+			then echo "mondorestore"
+			fi
+			
+    	 	if [ $num -gt 1 ]
+			then echo "Too many args"
+			fi
+
+	else if [ $differential = 'true' ]
+			then
+		 		if [ $num -eq 4 ]
+				then echo "mondoarchive -O -i -I \"$dir1\" -d \"$dir2\" -p \"$name\" -s 4g -W -D"
+				fi
+			
+				if [ $num -lt 4 ]
+				then echo "Args missing"
+				fi
+    	 	
+    		 	if [ $num -gt 4 ]
+				then echo "Too many args"
+				fi
+    		else
+    		 echo "mondoarchive -O -i -I \"$dir1\" -d \"$dir2\" -p \"$name\" -s 4g -W"
+     	 fi
 fi
