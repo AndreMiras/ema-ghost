@@ -1,0 +1,51 @@
+#!/bin/bash
+# mondorestore.sh wrapper
+
+# TODO:
+#   - Simon do the nfs mount
+
+verbose=""
+output_directory="/"
+
+usage()
+{
+cat << EOF
+usage: $0 -f isofile
+
+Automate system restoration from Mondo ISOs (both full and differential)
+
+OPTIONS:
+   -h      Show this message
+   -f      Path to Full backup ISO
+   -v      Verbose
+
+Examples:
+    $0 -f /mnt/backups/mondorescue-1.iso
+    $0 -f /mnt/backups/gentoo-1.iso
+EOF
+}
+
+
+while getopts "hf:d:o:v" OPTION
+do
+     case $OPTION in
+         h)
+             usage
+             exit
+             ;;
+         f)
+             # path to full backup ISO
+             iso_full_input_path=$OPTARG
+             ;;
+         v)
+             verbose="-v"
+             ;;
+         ?)
+             usage
+             exit
+             ;;
+     esac
+done
+
+
+mondorestore.sh -f $iso_full_input_path -o $output_directory $verbose

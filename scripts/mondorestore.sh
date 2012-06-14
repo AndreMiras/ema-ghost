@@ -2,6 +2,7 @@
 # Automate system restorations from Mondo ISOs
 # TODO:
 #	- add support for splits e.g. mondorescue-[0-9].iso
+#	- ability to apply a diff only
 #
 
 
@@ -57,11 +58,7 @@ exec_cmd()
 }
 
 
-TEST=
-SERVER=
-PASSWD=
-VERBOSE=
-while getopts “hf:d:o:v” OPTION
+while getopts "hf:d:o:v" OPTION
 do
      case $OPTION in
          h)
