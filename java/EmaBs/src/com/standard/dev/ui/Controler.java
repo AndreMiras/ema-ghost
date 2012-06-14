@@ -9,6 +9,7 @@ import com.standard.dev.ui.services.Chargement.Chargement;
 import com.standard.dev.ui.services.CreateSauvegarde.CreateSauvegarde;
 import com.standard.dev.ui.services.LanceRestauration.LanceRestauration;
 import com.standard.dev.ui.services.ListeRestauration.ListeRestauration;
+import com.standard.dev.ui.services.Mondo.MondoOutput;
 import com.standard.dev.ui.services.PrincipalCLient.PrincipalClient;
 import com.standard.dev.ui.services.PrincipalServeur.PrincipalServeur;
 import com.standard.dev.ui.services.Restauration.Restauration;
@@ -32,5 +33,6 @@ public class Controler extends com.standard.architecture.ui.Controler{
 		getHtable().put("lrs", new LanceRestauration(this,this.frame));
 		getHtable().put("lar", new ListeRestauration(this,this.frame));	
 		getHtable().put("csv", new CreateSauvegarde(this,this.frame));		
+		getHtable().put("mon", new MondoOutput(this,this.frame));		
 	}
 }

@@ -90,10 +90,9 @@ public class ListeRestauration extends Service implements ServiceInterface{
 					unDeploiementSequence.setAddrDiffusion(file.getTexte().get(0));
 	
 					System.out.println(unDeploiementSequence);
-					unDeploiementSequence.lanceWOL();
-					sequence.add(unDeploiementSequence);
+//					sequence.add(unDeploiementSequence);
 					decharger();
-					result = new MessageInterService("chr","lar",1,sequence);
+					result = new MessageInterService("mon","lar",1,sequence);
 				}
 			}
 		}

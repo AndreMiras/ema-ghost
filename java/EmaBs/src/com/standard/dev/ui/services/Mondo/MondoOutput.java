@@ -1,6 +1,7 @@
 package com.standard.dev.ui.services.Mondo;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -80,6 +81,9 @@ public class MondoOutput extends Service implements ServiceInterface{
 				//Recup @mac
 				//String addrMAC = ((AmaEspace)this.getJFrameS().getPnl_espace()).getMacAddress();
 				//Creer une sequence de restauration
+			List<DeploiementSequence> sequence = ((MessageInterService)this.getAbstractMessage()).getlistData();
+			DeploiementSequence unDeploiementSequence = sequence.get(0);
+			
 			DeploiementSequence seq = new DeploiementSequence("00:24:21:03:28:cb");
 				//Lance le job
 				seq.launchJob();
@@ -91,13 +95,7 @@ public class MondoOutput extends Service implements ServiceInterface{
 	@Override
 	public boolean isvalid() {
 		// TODO Auto-generated method stub
-		if(((AmaEspace)this.getJFrameS().getPnl_espace()).getMacAddress().length() != (17))
-		{
-			this.getJFrameS().setErreur("err.AddressMac");
-			return false;
-		}		
-		this.getJFrameS().setErreur("");
-		return true;
+		return false;
 	}
 
 	@Override
