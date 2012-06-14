@@ -10,7 +10,7 @@ output_directory="/"
 usage()
 {
 cat << EOF
-usage: $0 -f iso_file -d iso_diff_file
+usage: $0 -s 192.168.1.1:/share/ -f iso_file -d iso_diff_file
 
 Automate system restoration from Mondo ISOs (both full and differential)
 
