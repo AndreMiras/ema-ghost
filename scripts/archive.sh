@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # affiche_param.sh
 #$1 : directory to backup
 #$2 : Output directory
