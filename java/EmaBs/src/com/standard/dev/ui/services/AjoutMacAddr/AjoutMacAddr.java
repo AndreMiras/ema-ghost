@@ -89,10 +89,11 @@ public class  AjoutMacAddr extends Service implements ServiceInterface{
 				String addrMac = ((AmaEspace)this.getJFrameS().getPnl_espace()).getMacAddress();
 				Fichier file = new Fichier("AddrMac.emabs");
 				List<String> addr = file.getTexte();
+				
 				addr.add(addrMac);
 				
 				try {
-					file.newTexte(null, addr);
+					file.newTexte(addr);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

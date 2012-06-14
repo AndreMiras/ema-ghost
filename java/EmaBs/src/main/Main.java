@@ -31,8 +31,9 @@ public class Main {
 		List<String> listDirectory = diskFileExplorer.getListDirectory();
 		List<String> listFile = diskFileExplorer.getListFile();
 */
-
 		//Controler ctrl = new Controler("prc");
+//		System.out.println(LanceCmdShell.lancecmd("mkdir /home/emabs/workspace/EmaBS/partage/isos"));
+//		System.out.println(LanceCmdShell.lancecmd("mkdir /home/emabs/workspace/EmaBS/partage/Promos"));
 		Controler ctrl2 = new Controler("prs");
 	}
 }

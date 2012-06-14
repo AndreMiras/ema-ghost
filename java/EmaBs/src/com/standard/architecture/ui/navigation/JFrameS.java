@@ -86,7 +86,7 @@ public class JFrameS extends JFrame implements JInterface_JFrameS_JPanelS{
 		g.setConstraints(pnl_menu,c);
 		
 		pnl_bas.add(mess_err);
-//		this.setPreferredSize(new Dimension(800,700));
+//		this.setPreferredSize(new Dimension(800,800));
 		this.pack();
 		this.setVisible(true);
 		
@@ -149,6 +149,7 @@ public class JFrameS extends JFrame implements JInterface_JFrameS_JPanelS{
 		getContentPane().setVisible(false);
 		getContentPane().remove(this.pnl_bas);
 		this.pnl_bas = new JPanel();
+		
 		mess_err = new JLabelErreurS(mess,controleur);			
 		if(mess.equals(""))
 		{

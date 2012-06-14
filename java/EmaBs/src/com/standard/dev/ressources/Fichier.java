@@ -60,4 +60,12 @@ public class Fichier {
 			filewriter.write(newTexte.get(i) + "\n");
 		filewriter.close();
 	}
+	public void newTexte(List<String> newTexte) throws IOException
+	{
+		FileWriter filewriter = new FileWriter(new File("AddrMac.emabs"), false); 
+
+		for(int i = 0 ; i < newTexte.size() ; i++)
+			filewriter.write(newTexte.get(i) + "\n");
+		filewriter.close();
+	}
 }
