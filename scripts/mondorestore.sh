@@ -110,6 +110,15 @@ fi
 exec_cmd "mount -o loop,ro $iso_full_backup_path $ISO_MOUNT_DIR"
 exec_cmd "cd $output_directory"
 exec_cmd "afio -i $ISO_MOUNT_DIR/archives/0.afio.bz2"
+for afio_file in `ls $ISO_MOUNT_DIR/archives/*.afio.bz2`
+do
+    exec_cmd "afio -i $afio_file"
+done
+
+# uncompressing bz2 archives made by mondoarchive
+find -type f -name '*.z' -exec bunzip2 {} \; 2> /dev/null
+find -type f -name '*.z.out' | while read f; do mv "$f" "${f%.z.out}"; done
+
 sleep 1 # workarounds umount: /mnt/iso: device is busy
 exec_cmd "umount $ISO_MOUNT_DIR"
 
