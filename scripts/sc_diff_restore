@@ -10,18 +10,19 @@ output_directory="/"
 usage()
 {
 cat << EOF
-usage: $0 -f isofile -d outdir
+usage: $0 -f iso_file -d iso_diff_file
 
 Automate system restoration from Mondo ISOs (both full and differential)
 
 OPTIONS:
    -h      Show this message
+   -s      NFS server address and share
    -f      Path to Full backup ISO
    -d      Path to Differential backup ISO
    -v      Verbose
 
 Examples:
-    $0 -f /mnt/backups/gentoo-1.iso -d /mnt/backups/diff-1.iso
+    $0 -s 192.168.1.1:/share/ -f /isos/gentoo-1.iso -d /isos/diff-1.iso
 EOF
 }
 
@@ -37,6 +38,10 @@ do
              # path to full backup ISO
              iso_full_input_path=$OPTARG
              ;;
+         s)
+             # path to full backup ISO
+             nfs_server=$OPTARG
+             ;;
          v)
              verbose="-v"
              ;;
@@ -51,5 +56,5 @@ do
      esac
 done
 
-
+# TODO mount
 mondorestore.sh -f $iso_full_input_path -o $output_directory $verbose -d $iso_diff_backup_path
