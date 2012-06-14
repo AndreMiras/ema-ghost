@@ -77,22 +77,22 @@ public class DeploiementSequence {
 	/*
 	 * Lancement de tous les jobs
 	 */
-	public void launchJobs(){
-		String iso = distribution+".iso";
-		for(int i=0; i<list_addr_mac.size(); i++){
-			String mac = list_addr_mac.get(i);
-			jobList.add(new RestaurationJob(partition, iso, mac));
-		}
-	}
-	
-	public void launchJob(){
-		RestaurationJob job = new RestaurationJob(list_addr_mac.get(0));
-		System.out.println("Lancement du job");
-		//job.run();
-		WOL wol = new WOL();
-		wol.startWol("192.168.6.20", "00:24:21:03:2c:cb");
-		System.out.println("Fin du job");
-	}
+//	public void launchJobs(){
+//		String iso = distribution+".iso";
+//		for(int i=0; i<list_addr_mac.size(); i++){
+//			String mac = list_addr_mac.get(i);
+//			jobList.add(new RestaurationJob(partition, iso, mac));
+//		}
+//	}
+//	
+//	public void launchJob(){
+//		RestaurationJob job = new RestaurationJob(list_addr_mac.get(0));
+//		System.out.println("Lancement du job");
+//		//job.run();
+//		WOL wol = new WOL();
+//		wol.startWol("192.168.6.20", "00:24:21:03:2c:cb");
+//		System.out.println("Fin du job");
+//	}
 
 	public void lanceWOL()
 	{

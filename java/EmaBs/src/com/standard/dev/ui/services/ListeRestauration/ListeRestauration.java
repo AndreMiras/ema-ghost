@@ -79,18 +79,15 @@ public class ListeRestauration extends Service implements ServiceInterface{
 			{
 				if(JOptionPane.showConfirmDialog(getJFrameS(), "Voulez-vous le deploiement ?", "Apply",JOptionPane.YES_NO_OPTION) == 0 )
 				{
+					//Sequences
 					List<DeploiementSequence> sequence = ((MessageInterService)this.getAbstractMessage()).getlistData();
 					DeploiementSequence unDeploiementSequence = sequence.get(0);
-	
-					
 					Fichier file = new Fichier("AddrMac.emabs");
 					List addr = ((LarEspace)this.getJFrameS().getPnl_espace()).getList().getSelectedList();
-	
 					unDeploiementSequence.setList_addr_mac(addr);
 					unDeploiementSequence.setAddrDiffusion(file.getTexte().get(0));
-	
-					System.out.println(unDeploiementSequence);
-//					sequence.add(unDeploiementSequence);
+					sequence.add(unDeploiementSequence);
+					//UI
 					decharger();
 					result = new MessageInterService("mon","lar",1,sequence);
 				}

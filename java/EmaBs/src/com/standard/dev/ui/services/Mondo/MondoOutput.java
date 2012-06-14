@@ -1,26 +1,31 @@
 package com.standard.dev.ui.services.Mondo;
 
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 
-import com.standard.architecture.ui.Controler;
+import com.standard.dev.business.util.RestaurationJob;
 import com.standard.architecture.ui.navigation.JFrameS;
 import com.standard.architecture.ui.service.AbstractMessage;
 import com.standard.architecture.ui.service.MessageInterService;
 import com.standard.architecture.ui.service.Service;
 import com.standard.architecture.ui.service.ServiceInterface;
 import com.standard.dev.ui.sequences.DeploiementSequence;
-import com.standard.dev.ui.sequences.RestaurationSequence;
-import com.standard.dev.ui.services.AjoutMacAddr.AmaEspace;
+import com.standard.dev.ui.Controler;
+import com.standard.dev.business.util.WOL;
+
 
 public class MondoOutput extends Service implements ServiceInterface{
-	/*
-	 * Attributs
-	 */
+	/** Attributs guillaume **/
 	private JFrameS frameSPere;
 	private Service pere;
+	/** Graphic elements **/
+	private MonEspace espaceMain;
+	private JTabbedPane tabbedPaneMain;
+	/** Sequence de deploiement **/
+	private DeploiementSequence sequence;
+	
 	/*
 	 * Constructeur
 	 */
@@ -30,11 +35,9 @@ public class MondoOutput extends Service implements ServiceInterface{
 		init();
 		this.pere = pere;
 		this.pere.setJFrameSVisible(false);
-		
 		this.getJFrameS().setAlwaysOnTop(true);
 		this.getJFrameS().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
-
 	public MondoOutput(Controler controleur, JFrameS frame) {
 		super(controleur, frame);
 		// TODO Auto-generated constructor stub
@@ -43,22 +46,46 @@ public class MondoOutput extends Service implements ServiceInterface{
 		this.getJFrameS().setVisible(false);
 	}
 
-
 	@Override
 	public boolean init() {
-		// TODO Auto-generated method stub
 		boolean result = true;
-
-		this.getJFrameS().setVisible(true);
-		this.getJFrameS().setErreur("");
-		getJFrameS().setPnl_espace(new MonEspace(getControler()));
+		JFrameS jFrameS = getJFrameS();
+		jFrameS.setVisible(true);
+		jFrameS.setErreur("");
 		
+		//Recuperation de la sequence
+		List<DeploiementSequence> seq = ((MessageInterService)this.getAbstractMessage()).getlistData();
+		sequence = seq.get(0);
+		//Initialisation de l'espace principal
+		espaceMain = new MonEspace(getControler());
+		jFrameS.setPnl_espace(espaceMain);
+		//Recuperation du tabbedpane
+		tabbedPaneMain = espaceMain.getTabbedPaneMain();
+		//Lancement de la creation des differents onglets
+		createJobs();
+		
+		//Parametres de la fenetre
 		frameSPere.setEnabled(false);
-		this.getJFrameS().setAlwaysOnTop(true);
-//		this.getJFrameS().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		getJFrameS().pack();
+		jFrameS.setAlwaysOnTop(true);
+		jFrameS.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		jFrameS.pack();
 		
 		return result;
+	}
+	
+	public void createJobs(){
+		List<String> macs = sequence.getList_addr_mac();
+		WOL wol = new WOL();
+		for(int i=0; i<macs.size(); i++){
+			//Recup @mac et reveil de la machine
+			String mac = macs.get(i);
+			//wol.startWol("", mac);
+			//Creation d'un panel pour le job, et ajout aux onglets
+			MondoPanel panel = new MondoPanel(getControler());
+			tabbedPaneMain.add(mac,panel);
+			//Creation d'un job
+			RestaurationJob job = new RestaurationJob(sequence,panel,mac);
+		}
 	}
 
 	@Override
@@ -75,20 +102,7 @@ public class MondoOutput extends Service implements ServiceInterface{
 		AbstractMessage result = null;
 		System.out.println(e);
 		this.getJFrameS().setErreur("");		
-		
-		if(e.equals("btn_Apply"))
-		{
-				//Recup @mac
-				//String addrMAC = ((AmaEspace)this.getJFrameS().getPnl_espace()).getMacAddress();
-				//Creer une sequence de restauration
-			List<DeploiementSequence> sequence = ((MessageInterService)this.getAbstractMessage()).getlistData();
-			DeploiementSequence unDeploiementSequence = sequence.get(0);
-			
-			DeploiementSequence seq = new DeploiementSequence("00:24:21:03:28:cb");
-				//Lance le job
-				seq.launchJob();
-		}	
-		
+				
 		return result;		
 	}
 
