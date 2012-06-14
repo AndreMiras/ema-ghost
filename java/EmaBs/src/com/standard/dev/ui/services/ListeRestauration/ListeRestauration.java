@@ -23,7 +23,7 @@ import com.standard.dev.ui.sequences.DeploiementSequence;
 
 
 public class ListeRestauration extends Service implements ServiceInterface{
-
+	DeploiementSequence unDeploiementSequence;
 	public ListeRestauration(Controler controleur, JFrameS frame) {
 		super(controleur, frame);
 		// TODO Auto-generated constructor stub
@@ -33,6 +33,9 @@ public class ListeRestauration extends Service implements ServiceInterface{
 	public boolean init() {
 		// TODO Auto-generated method stub
 		boolean result = true;
+		
+		List<DeploiementSequence> sequence = ((MessageInterService)this.getAbstractMessage()).getlistData();
+		unDeploiementSequence = sequence.get(0);
 
 		JPanel pnl_titre = new JPanel();
 		JButtonS jbutton = new JButtonS("lar.btn_home", getControler());
@@ -79,18 +82,15 @@ public class ListeRestauration extends Service implements ServiceInterface{
 			{
 				if(JOptionPane.showConfirmDialog(getJFrameS(), "Voulez-vous le deploiement ?", "Apply",JOptionPane.YES_NO_OPTION) == 0 )
 				{
+					//Sequences
 					List<DeploiementSequence> sequence = ((MessageInterService)this.getAbstractMessage()).getlistData();
 					DeploiementSequence unDeploiementSequence = sequence.get(0);
-	
-					
 					Fichier file = new Fichier("AddrMac.emabs");
 					List addr = ((LarEspace)this.getJFrameS().getPnl_espace()).getList().getSelectedList();
-	
 					unDeploiementSequence.setList_addr_mac(addr);
 					unDeploiementSequence.setAddrDiffusion(file.getTexte().get(0));
-	
-					System.out.println(unDeploiementSequence);
-//					sequence.add(unDeploiementSequence);
+					sequence.add(unDeploiementSequence);
+					//UI
 					decharger();
 					result = new MessageInterService("mon","lar",1,sequence);
 				}
@@ -106,7 +106,7 @@ public class ListeRestauration extends Service implements ServiceInterface{
 			{
 				if(((LarEspace)this.getJFrameS().getPnl_espace()).getList().getSelectedIndex() != -1)
 				{
-					if(JOptionPane.showConfirmDialog(getJFrameS(), "Voulez-vous supprimer les �l�ments selectionn�s ?", "Apply",JOptionPane.YES_NO_OPTION) == 0 )
+					if(JOptionPane.showConfirmDialog(getJFrameS(), "Voulez-vous supprimer les elements selectionnes ?", "Apply",JOptionPane.YES_NO_OPTION) == 0 )
 					{
 						((LarEspace)this.getJFrameS().getPnl_espace()).getList().removeALLSelected();
 						

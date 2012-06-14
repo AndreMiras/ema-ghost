@@ -32,11 +32,11 @@ public class LanceRestauration extends Service implements ServiceInterface{
 		boolean result = true;
 
 		JPanel pnl_titre = new JPanel();
-		JButtonS jbutton = new JButtonS("lrs.btn_home", getControler());
+	/*	JButtonS jbutton = new JButtonS("lrs.btn_home", getControler());
 		jbutton.setBorderPainted(false);
 		jbutton.setBackground(Color.WHITE);
 		pnl_titre.add(jbutton);
-		pnl_titre.add(new JLabelS("lrs.Home",getControler()));
+	*/	pnl_titre.add(new JLabelS("lrs.Home",getControler()));
 		getJFrameS().setPnl_titre(pnl_titre);
 		getJFrameS().setPnl_espace(new LrsEspace(getControler()));
 	

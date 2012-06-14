@@ -2,6 +2,7 @@
 # Automate system restorations from Mondo ISOs
 # TODO:
 #	- add support for splits e.g. mondorescue-[0-9].iso
+#	- ability to apply a diff only
 #
 
 
@@ -75,11 +76,7 @@ uncompress_bz2()
     find -type f -name '*.z.out' | while read f; do mv "$f" "${f%.z.out}"; done
 }
 
-TEST=
-SERVER=
-PASSWD=
-VERBOSE=
-while getopts “hf:d:o:v” OPTION
+while getopts "hf:d:o:v" OPTION
 do
      case $OPTION in
          h)

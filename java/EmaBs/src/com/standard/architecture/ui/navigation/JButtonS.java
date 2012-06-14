@@ -61,6 +61,14 @@ public class JButtonS extends JButton{
 				visible = resP.getProperty(name + ".visible");
 			}
 		}
+		if(!visible.equals("n") && !visible.equals("N"))
+		{
+			this.setVisible(true);
+		}
+		else
+		{
+			this.setVisible(false);
+		}
 		addActionListener(controleur);
 	}
 	/*

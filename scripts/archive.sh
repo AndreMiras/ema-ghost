@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # affiche_param.sh
 #$1 : directory to backup
 #$2 : Output directory
@@ -59,7 +59,7 @@ while [ $# -gt 0 ] ;
 if [ $differential = 'true' ]
 			then
 		 		if [ $num -eq 4 ]
-				then echo "mondoarchive -O -i -I $dir1 -d $dir2 -p \"$name\" -s 4g -W -D"
+				then mondoarchive -O -i -I $dir1 -d $dir2 -p $name -s 4g -W -D
 				fi
 			
 				if [ $num -lt 4 ]
@@ -72,7 +72,7 @@ if [ $differential = 'true' ]
     		else
     		
     			if [ $num -eq 3 ]
-				then echo "mondoarchive -O -i -I $dir1 -d $dir2 -p $name -s 4g -W"
+				then mondoarchive -O -i -I $dir1 -d $dir2 -p $name -s 4g -W
 				fi
 			
 				if [ $num -lt 3 ]

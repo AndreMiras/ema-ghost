@@ -4,26 +4,32 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
+import com.standard.dev.ui.sequences.DeploiementSequence;
+import javax.swing.JTextField;
 
 public class SSH {
 	/** Var util SSH **/
 	private static final String user = "emabs";
 	private static final String pwd = "emabs";
-	private String ip;
-	/** Var info **/
+	/** Var util mondo **/
 	private static final String srv = "192.168.6.1";
-	private String cmd = "/emabs/the_script";
+	private String cmd = "/usr/local/bin/sc_restore";
+	/** Informations deploiement **/
+	private DeploiementSequence sequence;
+	private String ip;
+	/** Graphics elements **/
+	private JTextField fieldConsole;
 	
-	public SSH(String ip){
+	public SSH(DeploiementSequence seq, String ip, JTextField field){
+		this.sequence = seq;
 		this.ip=ip;
+		this.fieldConsole = field;
 	}
 	
-	public String launchViaSSH(){
-		String result = "";
+	public void launchViaSSH(){
 		try
 		{
 			/* Create a connection instance */
@@ -46,12 +52,12 @@ public class SSH {
 			InputStream stdout = new StreamGobbler(sess.getStdout());
 			BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
 			
-			String line;
-			while ((line=br.readLine()) != null)
-				result += line;
-
-			/* Show exit status, if available (otherwise "null") */
-			//System.out.println("ExitCode: " + sess.getExitStatus());
+			String text = "";
+			String line = "";
+			while ((line=br.readLine()) != null){
+				text += line;
+				fieldConsole.setText(text);
+			}
 			
 			/* Close this session */
 			sess.close();
@@ -62,7 +68,5 @@ public class SSH {
 		{
 			e.printStackTrace(System.err);
 		}
-		
-		return result;
 	}
 }
