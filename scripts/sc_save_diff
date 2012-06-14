@@ -1,0 +1,9 @@
+#!/bin/sh
+
+	dirbackup="/"
+	outputdir="/"
+	name=$1
+	num=$#
+	help=false
+	
+sh archive.sh \"$dirbackup\" \"$outputdir\"  \"$name\" -d
