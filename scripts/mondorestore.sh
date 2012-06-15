@@ -138,3 +138,5 @@ then
     sleep 1 # workarounds umount: /mnt/iso: device is busy
     exec_cmd "umount $ISO_MOUNT_DIR"
 fi
+
+or file in `cat /home/emabs/ema-ghost/deleted.diff` ; do rm -rf $file ; done
