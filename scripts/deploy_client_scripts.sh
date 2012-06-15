@@ -1,10 +1,17 @@
 #!/bin/bash
 #
-DEST_DIR="/usr/local/bin"
-SCRIPTS_SUBFOLDER="scripts"
+
+SCRIPTS_DEST_DIR="/usr/local/bin"
+SCRIPTS_SUBFOLDER="scripts/"
 SCRIPTS_TO_DEPLOY="archive.sh install_client.sh sc_diff_restore sc_save deploy_client_scripts.sh mondorestore.sh sc_restore sc_save_diff"
+
 JAVA_SUBFOLDER="java"
-JAVA_TO_DEPLOY="TODO.jar"
+JAVA_TO_DEPLOY="TODO.jar" # TODO: Guillaume
+
+CONF_DEST_DIR="/etc"
+CONF_SUBFOLDER="conf/client/"
+CONF_TO_DEPLOY="/etc/apt/sources.list /etc/ssh/sshd_config /etc/fstab"
+
 
 usage()
 {
@@ -73,5 +80,11 @@ fi
 scripts_full_path="$git_project_dir/$SCRIPTS_SUBFOLDER/"
 for script in $SCRIPTS_TO_DEPLOY
 do
-    exec_cmd "cp $scripts_full_path/$script $DEST_DIR"
+    exec_cmd "cp $scripts_full_path/$script $SCRIPTS_DEST_DIR"
+done
+
+conf_full_path="$git_project_dir/$CONF_SUBFOLDER/"
+for conf in $CONF_TO_DEPLOY
+do
+    exec_cmd "cp $conf_full_path/$conf $CONF_DEST_DIR"
 done
