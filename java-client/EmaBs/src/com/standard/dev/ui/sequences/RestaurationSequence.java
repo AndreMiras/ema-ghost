@@ -69,7 +69,7 @@ public class RestaurationSequence extends Thread implements Sequence {
 		this.Partage = Partage;
 	}
 	/*
-	 * M�thodes
+	 * Methodes
 	 */
 	@Override
 	public void lanceSequence(Service service,ChrEspace espace) 
@@ -81,13 +81,14 @@ public class RestaurationSequence extends Thread implements Sequence {
 		
 	public void run()
 	{
+		String res ="";
 		// TODO Auto-generated method stub
 		//chemin complet de la sauvegarde diff
 		String Chemin_sauvaugarde_diff = getPartage() + "/Promos/" + getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom();
 		
 		String cmdMondo = "/usr/local/bin/sc_diff_restore ";
 		cmdMondo += Chemin_sauvaugarde_diff + "/" + getSauvegarde();
-		String res ="";
+		
 		System.out.println();
 		res = LanceCmdShell.lancecmd(cmdMondo);
 		System.out.println(res);		//afficahe console
