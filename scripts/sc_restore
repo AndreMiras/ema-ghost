@@ -4,6 +4,7 @@
 
 verbose=""
 output_directory="/mnt/sda4"
+mount_directory="/mnt/share"
 
 usage()
 {
@@ -24,7 +25,7 @@ EOF
 }
 
 
-while getopts "hf:d:o:v" OPTION
+while getopts "hs:f:v" OPTION
 do
      case $OPTION in
          h)
@@ -55,7 +56,6 @@ then
     exit 1
 fi
 
-mount -t nfs $nfs_server /mnt/share/ 
-
-#mondorestore.sh -f $iso_full_input_path -o $output_directory $verbose
+mount -t nfs $nfs_server $mount_directory
+mondorestore.sh -f $mount_directory/$iso_full_input_path -o $output_directory $verbose
 
