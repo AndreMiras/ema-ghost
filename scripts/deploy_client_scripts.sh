@@ -86,5 +86,5 @@ done
 conf_full_path="$git_project_dir/$CONF_SUBFOLDER/"
 for conf in $CONF_TO_DEPLOY
 do
-    exec_cmd "cp $conf_full_path/$conf $CONF_DEST_DIR"
+    exec_cmd "cp $conf_full_path/$conf /$conf"
 done
