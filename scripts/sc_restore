@@ -24,6 +24,22 @@ Examples:
 EOF
 }
 
+exec_cmd()
+{
+    if [[ ! -z $verbose ]]
+    then
+        echo "Running: $1"
+    fi
+    # TODO: is that the right way to do it?
+    $1
+    if [ $? != 0 ]
+    then
+        echo "!! Error while running: $1 !!"
+        echo "Try rerunning the script in verbose (-v) mode."
+        echo ""
+        exit 1
+    fi
+}
 
 while getopts "hs:f:v" OPTION
 do
@@ -56,6 +72,6 @@ then
     exit 1
 fi
 
-mount -t nfs $nfs_server $mount_directory
-mondorestore.sh -f $mount_directory/$iso_full_input_path -o $output_directory $verbose
+exec_cmd "mount -t nfs $nfs_server $mount_directory"
+exec_cmd "mondorestore.sh -f $mount_directory/$iso_full_input_path -o $output_directory $verbose"
 
