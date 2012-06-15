@@ -63,7 +63,7 @@ exec_cmd()
 #    find -type f -name '*.z.out' | while read f; do mv "$f" "${f%.z.out}"; done
 #}
 
-while getopts “h:f:d:n:v” OPTION
+while getopts “hf:d:n:vs:” OPTION
 do
      case $OPTION in
          h)
