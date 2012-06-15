@@ -43,6 +43,7 @@ public class JCheckBoxS extends JCheckBox{
 				{
 					Icon imgicon = new ImageIcon(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"img"+controleur.getConfiguration().getSeparateur_dossier()+"" +resP.getProperty(name + ".icon"));
 					this.setIcon(imgicon);
+					this.setOpaque(false);
 				}
 			}
 		}

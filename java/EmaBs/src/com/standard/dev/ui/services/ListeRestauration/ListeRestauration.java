@@ -20,6 +20,7 @@ import com.standard.architecture.ui.service.ServiceInterface;
 import com.standard.dev.business.util.WOL;
 import com.standard.dev.ressources.Fichier;
 import com.standard.dev.ui.sequences.DeploiementSequence;
+import com.standard.dev.ui.services.ListeRestauration.LarEspace;
 
 
 public class ListeRestauration extends Service implements ServiceInterface{
@@ -35,13 +36,13 @@ public class ListeRestauration extends Service implements ServiceInterface{
 		boolean result = true;
 		
 		List<DeploiementSequence> sequence = ((MessageInterService)this.getAbstractMessage()).getlistData();
-		unDeploiementSequence = sequence.get(0);
+	//	unDeploiementSequence = sequence.get(0);
 
 		JPanel pnl_titre = new JPanel();
-		JButtonS jbutton = new JButtonS("lar.btn_home", getControler());
-		jbutton.setBorderPainted(false);
-		jbutton.setBackground(Color.WHITE);
-		pnl_titre.add(jbutton);
+//		JButtonS jbutton = new JButtonS("lar.btn_home", getControler());
+//		jbutton.setBorderPainted(false);
+//		jbutton.setBackground(Color.WHITE);
+//		pnl_titre.add(jbutton);
 		pnl_titre.add(new JLabelS("lar.Home",getControler()));
 		getJFrameS().setPnl_titre(pnl_titre);
 		getJFrameS().setPnl_espace(new LarEspace(getControler()));
@@ -69,12 +70,12 @@ public class ListeRestauration extends Service implements ServiceInterface{
 		if(e.equals("btn_home"))
 		{
 			decharger();
-			result = new MessageInterService("prs","lar",1,null);
+			result = new MessageInterService("lrs","lar",1,null);
 		}
 		if(e.equals("btn_cancel"))
 		{
 			decharger();
-			result = new MessageInterService("prs","lar",1,null);
+			result = new MessageInterService("lrs","lar",1,null);
 		}
 		if(e.equals("btn_Apply"))
 		{
@@ -89,6 +90,15 @@ public class ListeRestauration extends Service implements ServiceInterface{
 					List addr = ((LarEspace)this.getJFrameS().getPnl_espace()).getList().getSelectedList();
 					unDeploiementSequence.setList_addr_mac(addr);
 					unDeploiementSequence.setAddrDiffusion(file.getTexte().get(0));
+
+					unDeploiementSequence.setPartage(this.getControler().getConfiguration().getChemin_dossier_partage());
+	
+					System.out.println(unDeploiementSequence);
+					unDeploiementSequence.lanceDeploiement();
+//					sequence.add(unDeploiementSequence);
+					decharger();
+					sequence = new ArrayList<DeploiementSequence>();
+
 					sequence.add(unDeploiementSequence);
 					//UI
 					decharger();

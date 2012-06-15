@@ -19,22 +19,10 @@ public class Main {
 	 */
 	public static void main(String[] args) throws IOException, NamingException {
 		// TODO Auto-generated method stub
-/*		System.out.println(LanceCmdShell.lancecmd(" find . -maxdepth 1 -type d -print"));
-		System.out.println(LanceCmdShell.lancecmd("mkdir /home/emabs/workspace/EmaBS/toto"));
-				
-				
-				
-				
-		String pathToExplore = "/home/emabs/workspace/EmaBS";
-		Repertoire diskFileExplorer = new Repertoire(pathToExplore, true);
-		diskFileExplorer.listToList();
-		List<String> listDirectory = diskFileExplorer.getListDirectory();
-		List<String> listFile = diskFileExplorer.getListFile();
-*/
-		//Controler ctrl = new Controler("prc");
-//		System.out.println(LanceCmdShell.lancecmd("mkdir /home/emabs/workspace/EmaBS/partage/isos"));
-//		System.out.println(LanceCmdShell.lancecmd("mkdir /home/emabs/workspace/EmaBS/partage/Promos"));
-		Controler ctrl2 = new Controler("prs");
+	//	WOL wol = new WOL();
+	//	System.out.println(wol.startWol("00:24:21:03:28:CB"));
+		Controler ctrl = new Controler("prc");
+	//	Controler ctrl2 = new Controler("lrs");//prs
 	}
 }
 /*

@@ -42,13 +42,14 @@ public class MondoOutput extends Service implements ServiceInterface{
 		super(controleur, frame);
 		// TODO Auto-generated constructor stub
 		frameSPere = frame;		
-		this.setJFrameS(new JFrameS());
-		this.getJFrameS().setVisible(false);
+//		this.setJFrameS(new JFrameS());
+//		this.getJFrameS().setVisible(false);
 	}
 
 	@Override
 	public boolean init() {
 		boolean result = true;
+		this.setJFrameS(new JFrameS());
 		JFrameS jFrameS = getJFrameS();
 		jFrameS.setVisible(true);
 		jFrameS.setErreur("");

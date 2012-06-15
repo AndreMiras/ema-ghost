@@ -129,6 +129,14 @@ public class PrsEspace extends JPanelS implements JInterface_JFrameS_JPanelS {
 	                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, Short.MAX_VALUE)
 	                .addContainerGap())
 	        );
+	        
+	        jPanel1.setOpaque(false);
+	        jPanel2.setOpaque(false);
+	        jPanel3.setOpaque(false);
+	        jPanel4.setOpaque(false);
+	        jPanel5.setOpaque(false);
+	        
+	        jButton1.setVisible(false);
 	    }
 	@Override
 	public void maj() {

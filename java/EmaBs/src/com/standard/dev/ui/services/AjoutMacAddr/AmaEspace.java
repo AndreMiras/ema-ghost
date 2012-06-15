@@ -60,11 +60,11 @@ public class AmaEspace extends JPanelS implements JInterface_JFrameS_JPanelS, Ke
         jTextField5.setActionCommand("5");
         jTextField6.setActionCommand("6");
         
-		jButton1.setBorderPainted(false);
+/*		jButton1.setBorderPainted(false);
         jButton1.setBackground(Color.WHITE);
         jButton2.setBorderPainted(false);
         jButton2.setBackground(Color.WHITE);
-
+*/
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         JLabelS jLabel2 = new JLabelS("ama.lbl_Ajout",getControleur());
         javax.swing.JLabel jLabel3 = new javax.swing.JLabel();

@@ -31,11 +31,11 @@ public class AcbEspace extends JPanelS implements JInterface_JFrameS_JPanelS {
         JButtonS jButton1 = new JButtonS("acb.btn_Apply",getControleur());
         JButtonS jButton2 = new JButtonS("acb.btn_cancel",getControleur());
 		
-        jButton1.setBorderPainted(false);
+/*        jButton1.setBorderPainted(false);
         jButton1.setBackground(Color.WHITE);
         jButton2.setBorderPainted(false);
         jButton2.setBackground(Color.WHITE);
-
+*/
         jTextField1.setText("");
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

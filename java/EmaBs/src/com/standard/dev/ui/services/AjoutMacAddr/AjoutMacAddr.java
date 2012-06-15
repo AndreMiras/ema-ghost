@@ -45,22 +45,23 @@ public class  AjoutMacAddr extends Service implements ServiceInterface{
 		super(controleur, frame);
 		// TODO Auto-generated constructor stub
 		frameSPere = frame;		
-		this.setJFrameS(new JFrameS());
-		this.getJFrameS().setVisible(false);
+		//this.setJFrameS(new JFrameS());
+		//this.getJFrameS().setVisible(false);
 	}
 
 	@Override
 	public boolean init() {
 		// TODO Auto-generated method stub
 		boolean result = true;
-
+		this.setJFrameS(new JFrameS());
+		this.getJFrameS().setControleur(this.getControler());
 		this.getJFrameS().setVisible(true);
 		this.getJFrameS().setErreur("");
 		getJFrameS().setPnl_espace(new AmaEspace(getControler()));
 		
 		frameSPere.setEnabled(false);
 		this.getJFrameS().setAlwaysOnTop(true);
-//		this.getJFrameS().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.getJFrameS().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		getJFrameS().pack();
 		
 		return result;

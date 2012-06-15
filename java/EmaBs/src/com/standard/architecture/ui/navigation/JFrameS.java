@@ -15,9 +15,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.standard.architecture.business.util.properties.Configuration;
 import com.standard.architecture.business.util.properties.Ressource;
 import com.standard.architecture.ui.Controler;
 import com.standard.architecture.ui.navigation.JPanelS;
+import com.standard.dev.ui.ConfigurationSetting;
 
 public class JFrameS extends JFrame implements JInterface_JFrameS_JPanelS{
 	/*
@@ -87,6 +89,7 @@ public class JFrameS extends JFrame implements JInterface_JFrameS_JPanelS{
 		
 		pnl_bas.add(mess_err);
 //		this.setPreferredSize(new Dimension(800,800));
+//		this.setMaximumSize(new Dimension(800,800));
 		this.pack();
 		this.setVisible(true);
 		
@@ -206,15 +209,16 @@ public class JFrameS extends JFrame implements JInterface_JFrameS_JPanelS{
 	{
 		this.controleur = controleur;
 		
-		Ressource resP = new Ressource(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"button.properties");
+		ConfigurationSetting config = new ConfigurationSetting();
+		Ressource resP = new Ressource(config.getChemin_dossier_configuration()+"configuration"+config.getSeparateur_dossier()+"button.properties");
 		
 		if(resP.getProperty("EmaBS.icon") !=null)
 		{
 			if(!resP.getProperty("EmaBS.icon").isEmpty())
 			{
-				if((new File(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"img"+controleur.getConfiguration().getSeparateur_dossier()+"" +resP.getProperty("EmaBS.icon")).exists()))
+				if((new File(config.getChemin_dossier_configuration()+"configuration"+config.getSeparateur_dossier()+"img"+config.getSeparateur_dossier()+"" +resP.getProperty("EmaBS.icon")).exists()))
 				{
-					Image img = new ImageIcon(controleur.getConfiguration().getChemin_dossier_configuration()+"configuration"+controleur.getConfiguration().getSeparateur_dossier()+"img"+controleur.getConfiguration().getSeparateur_dossier()+"" +resP.getProperty("EmaBS.icon")).getImage();
+					Image img = new ImageIcon(config.getChemin_dossier_configuration()+"configuration"+config.getSeparateur_dossier()+"img"+config.getSeparateur_dossier()+"" +resP.getProperty("EmaBS.icon")).getImage();
 					setIconImage(img);
 				}
 			}

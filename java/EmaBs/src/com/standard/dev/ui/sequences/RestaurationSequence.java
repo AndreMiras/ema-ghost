@@ -1,8 +1,12 @@
 package com.standard.dev.ui.sequences;
 
+import com.standard.architecture.ui.service.Service;
+import com.standard.dev.business.util.LanceCmdShell;
+import com.standard.dev.ui.services.Chargement.Chargement;
+import com.standard.dev.ui.services.Chargement.ChrEspace;
 import com.standard.dev.ui.services.Restauration.RstEspace;
 
-public class RestaurationSequence {
+public class RestaurationSequence extends Thread implements Sequence {
 	/*
 	 * Attributs
 	 */
@@ -11,6 +15,9 @@ public class RestaurationSequence {
 	String distribution;
 	String nom;
 	String sauvegarde;
+	String Partage;
+	Service service;
+	ChrEspace espace;
 	/*
 	 * Constructeur 
 	 */
@@ -55,7 +62,41 @@ public class RestaurationSequence {
 	public void setSauvegarde(String sauvegarde) {
 		this.sauvegarde = sauvegarde;
 	}
+	public String getPartage() {
+		return Partage;
+	}
+	public void setPartage(String Partage) {
+		this.Partage = Partage;
+	}
 	/*
-	 * Méthodes
+	 * Mï¿½thodes
 	 */
+	@Override
+	public void lanceSequence(Service service,ChrEspace espace) 
+	{
+		this.service = service;
+		this.espace = espace;
+		this.start();
+	}
+		
+	public void run()
+	{
+		// TODO Auto-generated method stub
+		//chemin complet de la sauvegarde diff
+		String Chemin_sauvaugarde_diff = getPartage() + "/Promos/" + getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom();
+		
+		String cmdMondo = "/usr/local/bin/sc_diff_restore ";
+		cmdMondo += Chemin_sauvaugarde_diff + "/" + getSauvegarde();
+		String res ="";
+		System.out.println();
+		res = LanceCmdShell.lancecmd(cmdMondo);
+		System.out.println(res);		//afficahe console
+		((Chargement) service).setTexte(res); //affichage fenetre
+		
+		
+		((Chargement) service).setTexte("Fin traitement");
+		((Chargement) service).afficheBoutonFermer();		
+		espace.timer.stop();
+		espace.jProgressBar1.setValue(100);
+	}
 }

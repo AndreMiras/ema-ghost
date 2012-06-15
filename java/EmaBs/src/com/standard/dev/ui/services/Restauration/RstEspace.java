@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 
 import com.standard.architecture.ui.Controler;
 import com.standard.architecture.ui.navigation.*;
+import com.standard.dev.data.Element.Repertoire;
 
 public class RstEspace extends JPanelS implements JInterface_JFrameS_JPanelS {
 	/*
@@ -34,11 +35,11 @@ public class RstEspace extends JPanelS implements JInterface_JFrameS_JPanelS {
 	public void init() {
 		JButtonS jButton1 = new JButtonS("rst.btn_Apply",getControleur());
 		JButtonS jButton2 = new JButtonS("rst.btn_cancel",getControleur());
-		jButton1.setBorderPainted(false);
+/*		jButton1.setBorderPainted(false);
         jButton1.setBackground(Color.WHITE);
         jButton2.setBorderPainted(false);
         jButton2.setBackground(Color.WHITE);
-        JLabelS jLabel1 = new JLabelS("rst.promo",getControleur());
+*/        JLabelS jLabel1 = new JLabelS("rst.promo",getControleur());
         JLabelS jLabel4 = new JLabelS("rst.cours",getControleur());
         JLabelS jLabel5 = new JLabelS("rst.iso",getControleur());
 		JLabelS jLabel3 = new JLabelS("rst.name",getControleur());
@@ -125,6 +126,26 @@ public class RstEspace extends JPanelS implements JInterface_JFrameS_JPanelS {
                     .addComponent(jButton1))
                 .addContainerGap())
         );
+        jComboBox2.setEnabled(false);
+        jComboBox3.setEnabled(false);
+        jComboBox4.setEnabled(false);
+        jComboBox5.setEnabled(false);
+        ArrayList<String> e1 = new ArrayList<String>();
+        e1.add("");
+        ArrayList<String> e2 = new ArrayList<String>();
+        e2.add("");
+        ArrayList<String> e3 = new ArrayList<String>();
+        e3.add("");
+        ArrayList<String> e4 = new ArrayList<String>();
+        e4.add("");
+        ArrayList<String> e5 = new ArrayList<String>();
+        e5.add("");
+        jComboBox1.listToCombo(e1);
+        jComboBox2.listToCombo(e2);
+        jComboBox3.listToCombo(e3);
+        jComboBox4.listToCombo(e4);
+        jComboBox5.listToCombo(e5);
+        remplisCombosPromotion();
 
 	}
 	@Override
@@ -152,4 +173,116 @@ public class RstEspace extends JPanelS implements JInterface_JFrameS_JPanelS {
 		// TODO Auto-generated method stub
 		return (String) jComboBox5.getSelectedItem();
 	}
+	public void remplisCombosPromotion()
+	{
+		String chemin = "";
+		if(!getControleur().getConfiguration().getChemin_dossier_partage().equals(""))
+		{
+			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
+		}
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos";
+		chemin  = chemin.replaceAll("//", "/");
+		
+		//remplissage de la combo promotion
+		Repertoire repertoire = new Repertoire(chemin,false);
+		repertoire.listToList();
+		
+		for(int i = 0 ; i < repertoire.getListDirectory().size() ; i++)
+		{
+			String e = ((String)repertoire.getListDirectory().get(i));
+			e = (String) e.subSequence(e.lastIndexOf(getControleur().getConfiguration().getSeparateur_dossier().substring(0, 1))+1, e.length());
+			jComboBox1.addToList(e);
+		}
+	}
+	public void remplisCombosCours()
+	{
+		String chemin = "";
+		if(!getControleur().getConfiguration().getChemin_dossier_partage().equals(""))
+		{
+			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
+		}
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos" + getControleur().getConfiguration().getSeparateur_dossier() + getPromotion();
+		chemin  = chemin.replaceAll("//", "/");
+		
+		//remplissage de la combo promotion
+		Repertoire repertoire = new Repertoire(chemin,false);
+		repertoire.listToList();
+		
+		for(int i = 0 ; i < repertoire.getListDirectory().size() ; i++)
+		{
+			String e = ((String)repertoire.getListDirectory().get(i));
+			e = (String) e.subSequence(e.lastIndexOf(getControleur().getConfiguration().getSeparateur_dossier().substring(0, 1))+1, e.length());
+			jComboBox2.addToList(e);
+		}
+	}
+	public void remplisCombosDistribution()
+	{
+		String chemin = "";
+		if(!getControleur().getConfiguration().getChemin_dossier_partage().equals(""))
+		{
+			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
+		}
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos" + getControleur().getConfiguration().getSeparateur_dossier() + getPromotion()  + getControleur().getConfiguration().getSeparateur_dossier() + getCours();
+		chemin  = chemin.replaceAll("//", "/");
+		
+		//remplissage de la combo promotion
+		Repertoire repertoire = new Repertoire(chemin,false);
+		repertoire.listToList();
+		
+		for(int i = 0 ; i < repertoire.getListDirectory().size() ; i++)
+		{
+			String e = ((String)repertoire.getListDirectory().get(i));
+			e = (String) e.subSequence(e.lastIndexOf(getControleur().getConfiguration().getSeparateur_dossier().substring(0, 1))+1, e.length());
+			jComboBox3.addToList(e);
+		}		
+	}
+	public void remplisCombosNom()
+	{
+		String chemin = "";
+		if(!getControleur().getConfiguration().getChemin_dossier_partage().equals(""))
+		{
+			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
+		}
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos"; 
+		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getPromotion();
+		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getCours();
+		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getDistribution();
+		chemin  = chemin.replaceAll("//", "/");
+		
+		//remplissage de la combo promotion
+		Repertoire repertoire = new Repertoire(chemin,false);
+		repertoire.listToList();
+		
+		for(int i = 0 ; i < repertoire.getListDirectory().size() ; i++)
+		{
+			String e = ((String)repertoire.getListDirectory().get(i));
+			e = (String) e.subSequence(e.lastIndexOf(getControleur().getConfiguration().getSeparateur_dossier().substring(0, 1))+1, e.length());
+			jComboBox4.addToList(e);
+		}		
+	}
+	public void remplisCombosSauvegarde()
+	{
+		String chemin = "";
+		if(!getControleur().getConfiguration().getChemin_dossier_partage().equals(""))
+		{
+			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
+		}
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos"; 
+		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getPromotion();
+		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getCours();
+		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getDistribution();
+		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getNom();
+		chemin  = chemin.replaceAll("//", "/");
+		
+		//remplissage de la combo promotion
+		Repertoire repertoire = new Repertoire(chemin,false);
+		repertoire.listToList();
+		
+		for(int i = 0 ; i < repertoire.getListFile().size() ; i++)
+		{
+			String e = ((String)repertoire.getListFile().get(i));
+			e = (String) e.subSequence(e.lastIndexOf(getControleur().getConfiguration().getSeparateur_dossier().substring(0, 1))+1, e.length());
+			jComboBox5.addToList(e);
+		}		
+	}	
 }

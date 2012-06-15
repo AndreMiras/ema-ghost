@@ -15,6 +15,10 @@ public class CreateSaveCompletSequence {
 	 * Getter Setter
 	 */
 	/*
-	 * Méthodes
+	 * Mï¿½thodes
 	 */
+	public void lanceDeploiement()
+	{
+		
+	}
 }

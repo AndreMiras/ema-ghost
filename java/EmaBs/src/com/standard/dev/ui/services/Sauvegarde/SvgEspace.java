@@ -176,7 +176,7 @@ public class SvgEspace extends JPanelS implements JInterface_JFrameS_JPanelS, Ac
         jComboBox1.listToCombo(e1);
         jComboBox2.listToCombo(e2);
         jComboBox3.listToCombo(e3);
-        jComboBox3.listToCombo(e4);
+        jComboBox4.listToCombo(e4);
         remplisCombosPromotion();
 	}
 	@Override
@@ -226,7 +226,7 @@ public class SvgEspace extends JPanelS implements JInterface_JFrameS_JPanelS, Ac
 		{
 			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
 		}
-		chemin += "partage" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos";
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos";
 		chemin  = chemin.replaceAll("//", "/");
 		
 		//remplissage de la combo promotion
@@ -247,7 +247,7 @@ public class SvgEspace extends JPanelS implements JInterface_JFrameS_JPanelS, Ac
 		{
 			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
 		}
-		chemin += "partage" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos" + getControleur().getConfiguration().getSeparateur_dossier() + getPromotion();
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos" + getControleur().getConfiguration().getSeparateur_dossier() + getPromotion();
 		chemin  = chemin.replaceAll("//", "/");
 		
 		//remplissage de la combo promotion
@@ -268,7 +268,7 @@ public class SvgEspace extends JPanelS implements JInterface_JFrameS_JPanelS, Ac
 		{
 			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
 		}
-		chemin += "partage" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos" + getControleur().getConfiguration().getSeparateur_dossier() + getPromotion()  + getControleur().getConfiguration().getSeparateur_dossier() + getCours();
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos" + getControleur().getConfiguration().getSeparateur_dossier() + getPromotion()  + getControleur().getConfiguration().getSeparateur_dossier() + getCours();
 		chemin  = chemin.replaceAll("//", "/");
 		
 		//remplissage de la combo promotion
@@ -289,7 +289,7 @@ public class SvgEspace extends JPanelS implements JInterface_JFrameS_JPanelS, Ac
 		{
 			chemin = getControleur().getConfiguration().getChemin_dossier_partage() + getControleur().getConfiguration().getSeparateur_dossier() ;
 		}
-		chemin += "partage" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos"; 
+		chemin += "" +getControleur().getConfiguration().getSeparateur_dossier() + "Promos"; 
 		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getPromotion();
 		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getCours();
 		chemin += getControleur().getConfiguration().getSeparateur_dossier() + getDistribution();

@@ -24,7 +24,7 @@ public abstract class JPanelS extends JPanel {
 	 * Attributs
 	 */
 	private Controler		controleur;
-	private int				esp_num;
+	private int			esp_num;
 	private Image 			img;
 
 	/*
@@ -87,7 +87,7 @@ public abstract class JPanelS extends JPanel {
 		init();
 	}
 	/*
-	 * Méthodes
+	 * Mï¿½thodes
 	 */
 	/*
 	 * get

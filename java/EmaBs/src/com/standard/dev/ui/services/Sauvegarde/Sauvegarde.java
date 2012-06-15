@@ -83,10 +83,12 @@ public class Sauvegarde  extends Service implements ServiceInterface{
 					uneCreateSaveDiffSequence.setDistribution(((SvgEspace)this.getJFrameS().getPnl_espace()).getDistribution());
 					uneCreateSaveDiffSequence.setNom(((SvgEspace)this.getJFrameS().getPnl_espace()).getNom());
 					uneCreateSaveDiffSequence.setPromotion(((SvgEspace)this.getJFrameS().getPnl_espace()).getPromotion());
+					uneCreateSaveDiffSequence.setPartage(this.getControler().getConfiguration().getChemin_dossier_partage());
 					
+					//uneCreateSaveDiffSequence.lanceDeploiement();
 					sequence.add(uneCreateSaveDiffSequence);
 					decharger();
-					result = new MessageInterService("chr","prc",1,sequence);
+					result = new MessageInterService("chr","svg",1,sequence);
 				}
 			}
 		}

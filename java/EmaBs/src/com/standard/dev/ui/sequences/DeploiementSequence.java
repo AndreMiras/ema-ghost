@@ -3,6 +3,7 @@ package com.standard.dev.ui.sequences;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.standard.dev.business.util.LanceCmdShell;
 import com.standard.dev.business.util.RestaurationJob;
 import com.standard.dev.business.util.WOL;
 
@@ -16,6 +17,7 @@ public class DeploiementSequence {
 	String distribution;
 	String addrDiffusion;	
 	String partition;
+	String Partage;
 	List<RestaurationJob> jobList;
 	/*
 	 * Constructeur
@@ -73,6 +75,12 @@ public class DeploiementSequence {
 	}
 	public void setAddrDiffusion(String addrDiffusion) {
 		this.addrDiffusion = addrDiffusion;
+	}	
+	public String getPartage() {
+		return Partage;
+	}
+	public void setPartage(String Partage) {
+		this.Partage = Partage;
 	}
 	/*
 	 * Lancement de tous les jobs
@@ -113,5 +121,15 @@ public class DeploiementSequence {
 		result += "\n";
 		
 		return result;
+	}
+	public void lanceDeploiement()
+	{
+		System.out.println("mkdir "+getPartage() + "partage/Promos/" + getPromo());
+		System.out.println("mkdir "+getPartage() + "partage/Promos/" + getPromo() + "/" + getCours());
+		System.out.println("mkdir "+getPartage() + "partage/Promos/" + getPromo() + "/" + getCours() + "/" +getDistribution());
+		
+		System.out.println(LanceCmdShell.lancecmd("mkdir "+getPartage() + "partage/Promos/" + getPromo()));
+		System.out.println(LanceCmdShell.lancecmd("mkdir "+getPartage() + "partage/Promos/" + getPromo() + "/" + getCours()));
+		System.out.println(LanceCmdShell.lancecmd("mkdir "+getPartage() + "partage/Promos/" + getPromo() + "/" + getCours() + "/" +getDistribution()));
 	}
 }

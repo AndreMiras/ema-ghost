@@ -37,6 +37,16 @@ public class LanceRestauration extends Service implements ServiceInterface{
 		jbutton.setBackground(Color.WHITE);
 		pnl_titre.add(jbutton);
 	*/	pnl_titre.add(new JLabelS("lrs.Home",getControler()));
+		JButtonS jButton1 = new JButtonS("lrs.btn_FR",getControler());
+		JButtonS jButton2 = new JButtonS("lrs.btn_EN",getControler());
+	
+		jButton1.setBorderPainted(false);
+	    jButton1.setBackground(Color.WHITE);
+		jButton2.setBorderPainted(false);
+	    jButton2.setBackground(Color.WHITE);
+	    
+	    pnl_titre.add(jButton1);        
+	    pnl_titre.add(jButton2);
 		getJFrameS().setPnl_titre(pnl_titre);
 		getJFrameS().setPnl_espace(new LrsEspace(getControler()));
 	
@@ -62,12 +72,12 @@ public class LanceRestauration extends Service implements ServiceInterface{
 		if(e.equals("btn_home"))
 		{
 			decharger();
-			result = new MessageInterService("prs","lrs",1,null);
+			result = new MessageInterService("lrs","lrs",1,null);
 		}
 		if(e.equals("btn_cancel"))
 		{
 			decharger();
-			result = new MessageInterService("prs","lrs",1,null);
+			result = new MessageInterService("lrs","lrs",1,null);
 		}
 		if(e.equals("cmb1"))
 		{
@@ -129,6 +139,16 @@ public class LanceRestauration extends Service implements ServiceInterface{
 				decharger();
 				result = new MessageInterService("lar","lrs",1,sequence);
 			}
+		}
+		if(e.equals("btn_FR"))
+		{
+			this.getControler().getConfiguration().setLang("FR");
+			result = new MessageInterService("lrs","lrs",1,null);
+		}
+		if(e.equals("btn_EN"))
+		{
+			this.getControler().getConfiguration().setLang("EN");
+			result = new MessageInterService("lrs","lrs",1,null);
 		}
 		
 		return result;		

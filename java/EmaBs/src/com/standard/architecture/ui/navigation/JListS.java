@@ -28,7 +28,7 @@ public class JListS extends JList{
 		this.list.add(new ArrayList<Object>());
 	}
 	/*
-	 * Méthodes
+	 * Mï¿½thodes
 	 */
 	/*
 	 * vide la jlist
@@ -93,7 +93,7 @@ public class JListS extends JList{
 		int[] indices = this.getSelectedIndices();
 		for(int i = indices.length - 1 ;  i !=-1 ; i--)
 		{
-			list.remove(i);
+			list.remove(indices[i]);
 		}
 
     	this.setListData(((ArrayList)list).toArray());

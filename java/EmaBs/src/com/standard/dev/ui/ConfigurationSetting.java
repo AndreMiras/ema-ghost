@@ -56,7 +56,7 @@ public class ConfigurationSetting {
 				chemin_dossier_partage = resP.getProperty("chemin_dossier_partage");
 			}
 		}
-		return dossierConf;
+		return chemin_dossier_partage;
 	}
 	public String getChemin_dossier_configuration()
 	{

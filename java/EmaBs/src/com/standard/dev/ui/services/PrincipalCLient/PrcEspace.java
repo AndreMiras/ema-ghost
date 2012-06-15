@@ -1,5 +1,6 @@
 package com.standard.dev.ui.services.PrincipalCLient;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -150,7 +151,12 @@ public class PrcEspace extends JPanelS implements JInterface_JFrameS_JPanelS {
 	                .addContainerGap()
 	                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, Short.MAX_VALUE)
 	                .addContainerGap())
-	        );
+	        );	        
+	        jPanel1.setOpaque(false);
+	        jPanel2.setOpaque(false);
+	        jPanel3.setOpaque(false);
+	        jPanel4.setOpaque(false);
+	        jPanel5.setOpaque(false);
 	    }
 	@Override
 	public void maj() {

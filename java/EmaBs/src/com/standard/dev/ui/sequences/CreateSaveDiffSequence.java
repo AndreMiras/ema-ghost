@@ -1,6 +1,14 @@
 package com.standard.dev.ui.sequences;
 
-public class CreateSaveDiffSequence {
+import java.util.Date;
+
+import com.standard.architecture.ui.service.Service;
+import com.standard.dev.business.util.LanceCmdShell;
+import com.standard.dev.business.util.WOL;
+import com.standard.dev.ui.services.Chargement.Chargement;
+import com.standard.dev.ui.services.Chargement.ChrEspace;
+
+public class CreateSaveDiffSequence extends Thread implements Sequence {
 	/*
 	 * Attributs
 	 */
@@ -9,6 +17,9 @@ public class CreateSaveDiffSequence {
 	String distribution;
 	String nom;
 	String sauvegarde;
+	String Partage;
+	Service service;
+	ChrEspace espace;
 	/*
 	 * Constructeur 
 	 */
@@ -19,6 +30,7 @@ public class CreateSaveDiffSequence {
 		distribution ="";
 		nom="";
 		sauvegarde="";
+		Partage="";
 	}
 	/*
 	 * Getter Setter
@@ -53,7 +65,45 @@ public class CreateSaveDiffSequence {
 	public void setSauvegarde(String sauvegarde) {
 		this.sauvegarde = sauvegarde;
 	}
+	public String getPartage() {
+		return Partage;
+	}
+	public void setPartage(String Partage) {
+		this.Partage = Partage;
+	}
 	/*
-	 * Méthodes
+	 * Mï¿½thodes
 	 */
+	@Override
+	public void lanceSequence(Service service,ChrEspace espace) 
+	{
+		this.service = service;
+		this.espace = espace;
+		this.start();
+	}
+		
+	public void run()
+	{
+		((Chargement) service).setTexte("mkdir "+getPartage() + "/Promos/" + getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom());
+		System.out.println(LanceCmdShell.lancecmd("mkdir "+getPartage() + "/Promos/" + getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom()));
+		
+		//chemin complet de la sauvegarde diff
+		String Chemin_sauvaugarde_diff = getPartage() + "/Promos/" + getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom();
+				
+		Date date_jour = new Date();
+		
+		String cmdMondo = "mondoarchive -O -i -I '/etc' -d '"+ Chemin_sauvaugarde_diff +"' -s 4g -W";
+		cmdMondo = "/usr/local/bin/sc_save_diff ";
+		cmdMondo +="-f " + getPartage() +"/isos/" + getDistribution() + " ";
+		cmdMondo +="-d " + Chemin_sauvaugarde_diff + " ";
+		cmdMondo +="-n " + getDistribution() + "_"+ getNom()  + "_"+ date_jour.getMinutes() +date_jour.getHours() + date_jour.getDay()+ date_jour.getMonth()+ date_jour.getYear() ;
+		System.out.println(cmdMondo);
+		((Chargement) service).setTexte(cmdMondo);
+
+		
+		((Chargement) service).setTexte("Fin traitement");
+		((Chargement) service).afficheBoutonFermer();		
+		espace.timer.stop();
+		espace.jProgressBar1.setValue(100);
+	}
 }
