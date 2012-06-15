@@ -7,7 +7,7 @@
 
 
 # directory to mount ISOs to
-ISO_MOUNT_DIR="/mnt/iso"
+ISO_MOUNT_DIR="/mnt/share/"
 
 usage()
 {
