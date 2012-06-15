@@ -5,7 +5,7 @@
 #   - Simon do the nfs mount
 
 verbose=""
-output_directory="/"
+output_directory="/mnt/sda4"
 
 usage()
 {
