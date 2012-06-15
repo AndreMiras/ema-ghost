@@ -88,3 +88,16 @@ for conf in $CONF_TO_DEPLOY
 do
     exec_cmd "cp $conf_full_path/$conf $CONF_DEST_DIR"
 done
+
+# deploying server ssh pub key to root and default user
+if [[ ! -d "/root/.ssh/" ]]
+then
+    mkdir /root/.ssh/
+fi
+exec_cmd "cp $conf_full_path/id_dsa.pub /root/.ssh/authorized_keys2"
+
+if [[ ! -d "/home/emabs/.ssh/" ]]
+then
+    mkdir /home/emabs/.ssh/
+fi
+exec_cmd "cp $conf_full_path/id_dsa.pub /home/emabs/.ssh/authorized_keys2"
