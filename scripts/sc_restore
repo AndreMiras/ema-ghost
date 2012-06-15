@@ -1,8 +1,6 @@
 #!/bin/bash
 # mondorestore.sh wrapper
 
-# TODO:
-#   - Simon do the nfs mount
 
 verbose=""
 output_directory="/mnt/sda4"
@@ -50,6 +48,12 @@ do
              ;;
      esac
 done
+
+if [[ ! -z $iso_full_input_path ]] | [[ -z $nfs_server ]]
+then
+    usage
+    exit 1
+fi
 
 # TODO mount
 mondorestore.sh -f $iso_full_input_path -o $output_directory $verbose
