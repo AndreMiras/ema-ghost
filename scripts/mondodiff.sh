@@ -11,7 +11,7 @@ ISO_MOUNT_DIR="/mnt/iso"
 usage()
 {
 cat << EOF
-usage: $0 -f full_archive_file -d destination_file
+usage: $0 -f full_archive_file -d destination_path_file -n iso_filename [-v] [-h]
 
 Create a differential backup from a mondo archive
 
@@ -19,6 +19,7 @@ OPTIONS:
    -h      Show this message
    -f      Path to Full backup ISO
    -d      Path to Differential backup ISO
+   -n      Prefix of the generated diff ISO
    -v      Verbose
 
 EOF
@@ -43,41 +44,25 @@ exec_cmd()
 }
 
 
-uncompress_afio()
-{
-    exec_cmd "cd $tmp_directory"
-    exec_cmd "afio -i $ISO_MOUNT_DIR/archives/0.afio.bz2"
-    for afio_file in `ls $ISO_MOUNT_DIR/archives/*.afio.bz2`
-    do
-        exec_cmd "afio -i $afio_file"
-    done
-}
-
-# uncompressing bz2 archives made by mondoarchive
-uncompress_bz2()
-{
-    exec_cmd "cd $tmp_directory"
-    find -type f -name '*.z' -exec bunzip2 {} \; 2> /dev/null
-    find -type f -name '*.z.out' | while read f; do mv "$f" "${f%.z.out}"; done
-}
-
-##copy added or modified files between f1 and f2 in temporary files folder
-#get_added_modified()
+#uncompress_afio()
 #{
-#    exec_cmd "TODO"
-#}
-#
-##echo deleted files paths between f1 and f2 in temporary deleted.txt
-#get_deleted()
-#{
-#    exec_cmd "TODO"
+#    exec_cmd "cd $tmp_directory"
+#    exec_cmd "afio -i $ISO_MOUNT_DIR/archives/0.afio.bz2"
+#    for afio_file in `ls $ISO_MOUNT_DIR/archives/*.afio.bz2`
+#    do
+#        exec_cmd "afio -i $afio_file"
+#    done
 #}
 
-TEST=
-SERVER=
-PASSWD=
-VERBOSE=
-while getopts “hf:d:o:v” OPTION
+## uncompressing bz2 archives made by mondoarchive
+#uncompress_bz2()
+#{
+#    exec_cmd "cd $tmp_directory"
+#    find -type f -name '*.z' -exec bunzip2 {} \; 2> /dev/null
+#    find -type f -name '*.z.out' | while read f; do mv "$f" "${f%.z.out}"; done
+#}
+
+while getopts “h:f:d:n:v” OPTION
 do
      case $OPTION in
          h)
@@ -95,6 +80,10 @@ do
         v)
              verbose=1
              ;;
+        n)
+            #name of the diff iso
+            iso_diff_name=$OPTARG
+            ;;
         ?)
              usage
              exit
@@ -102,9 +91,11 @@ do
      esac
 done
 
-$tmp_directory = /tmp/$RANDOM.$RANDOM
+tmp_directory="/tmp/mondo$RANDOM"
 exec_cmd "mkdir $tmp_directory"
-exec_cmd "mkdir $tmp_directory/files"
+#for the time you will realize mondo is useless for what you want to do
+#exec_cmd "mkdir $tmp_directory/files"
+exec_cmd "cd $tmp_directory"
 
 if [[ -z $iso_full_backup_path ]] || [[ -z $iso_diff_backup_path ]]
 then
@@ -126,13 +117,21 @@ fi
 exec_cmd "mount -o loop,ro $iso_full_backup_path $ISO_MOUNT_DIR"
 
 #diff between full iso and hdd
-#copy added or modified files in $tmp_directory/files/
-exec_cmd "zcat /mnt/iso/archives/filelist.full.gz |sort > filelist.full"
-exec_cmd "grep -v ^/media filelist.full | grep -v ^/mnt | grep -v ^/mondo.* | grep -v ^/proc | grep -v ^/run | grep -v ^/sys | grep -v ^/tmp | grep -v ^/var/tmp | sort > filelist.before"
-exec_cmd "find / -path /media -prune -o -path /mnt -prune -o -path /mondo.* -prune -o -path /proc -prune -o -path /run -prune -o -path /sys -prune -o -path /tmp -prune -o -path '/var/tmp' -prune -o -print | sort > filelist.after"
-exec_cmd "diff filelist.before filelist.after > filelist.diff"
+#get list of full backup files
+# exec_cmd "zcat $ISO_MOUNT_DIR/archives/filelist.full.gz | sort > filelist.full"
+# zcat $ISO_MOUNT_DIR/archives/filelist.full.gz | sort > filelist.full
+zcat $ISO_MOUNT_DIR/archives/filelist.full.gz | sort > filelist.full
+# exit
+#exclude useless directories
+grep -v ^/media filelist.full | grep -v ^/mnt | grep -v ^/mondo.* | grep -v ^/proc | grep -v ^/run | grep -v ^/sys | grep -v ^/tmp | grep -v ^/var/tmp | sort > filelist.before
+#get list of actual system files
+find / -path /media -prune -o -path /mnt -prune -o -path /mondo.* -prune -o -path /proc -prune -o -path /run -prune -o -path /sys -prune -o -path /tmp -prune -o -path '/var/tmp' -prune -o -print | sort > filelist.after
+#get list of deleted files
+comm -23 filelist.before filelist.after > deleted.diff
+#copy the list into the right place
+mv deleted.diff /home/emabs/ema-ghost/deleted.diff
 
-#compress the whole thing
+mondoarchive -Oi -E "/media /mnt /mondo.* /proc /run /sys /tmp /var/tmp" -d $iso_diff_backup_path -s 5g -W -D -p $iso_diff_name
 
 sleep 1 # workarounds umount: /mnt/iso: device is busy
 exec_cmd "umount $ISO_MOUNT_DIR"
