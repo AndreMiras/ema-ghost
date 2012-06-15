@@ -32,22 +32,23 @@ EOF
 	name=$3
 	num=$#
 	differential=false
-	help=false
-	
-	
-	
+	partition=/mnt/sda4
+    help=false
+
+
+
 while [ $# -gt 0 ] ;
 	do
 		if [ $1 = "-d" ]
 		then
 			differential=true
 		fi
-		
+
 		if [ $1 = "h" ]
 		then
 			help=true
 		fi
-	
+
 		if [ $1 = "?" ]
 		then
 			help=true
@@ -57,30 +58,40 @@ while [ $# -gt 0 ] ;
 
 
 if [ $differential = 'true' ]
-			then
-		 		if [ $num -eq 4 ]
-				then mondoarchive -O -i -d $dir2 -p $name -s 4g -W -D
-				fi
-			
-				if [ $num -lt 4 ]
-				then usage
-				fi
-    	 	
-    		 	if [ $num -gt 4 ]
-				then usage					
-				fi
-    		else
-    		
-    			if [ $num -eq 3 ]
-				then mondoarchive -O -i -d $dir2 -p $name -s 4g -W
-				fi
-			
-				if [ $num -lt 3 ]
-				then usage
-				fi
-    	 	
-    		 	if [ $num -gt 3 ]
-				then usage					
-				fi
+then
+#	if [ $num -eq 4 ]
+#	then
+#		if [ ! -d /mnt/share ]
+#		then mkdir /mnt/share
+#		fi
+#		mount -t nfs $nfs_server /mnt/share
+#		mondoarchive -O -i -I $dir1 -d $dir2 -p $name -s 4g -W -D
+#	fi
+#
+#	if [ $num -lt 4 ]
+#	then usage
+#	fi
+#
+#  	if [ $num -gt 4 ]
+#	then usage
+#	fi
+    echo 'moved to mondodiff.sh'
+else
+
+  	if [ $num -eq 3 ]
+	then
+		if [ ! -d /mnt/share ]
+                then mkdir /mnt/share
+                fi
+                mondoarchive -O -i -I $partition/$dir1 -d $dir2 -p $name -s 4g -W
+	fi
+
+	if [ $num -lt 3 ]
+	then usage
+	fi
+
+	if [ $num -gt 3 ]
+	then usage
+	fi
 fi
 
