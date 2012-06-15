@@ -1,4 +1,5 @@
 #!/bin/bash
+# Automate new client installation (for iso creation)
 
 required_packages="openssh-server nfs-common openjdk-6-jre"
 optional_packages="vim screen git"
