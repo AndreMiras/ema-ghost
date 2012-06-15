@@ -7,9 +7,9 @@
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 proc            /proc           proc    nodev,noexec,nosuid 0       0
 # / was on /dev/sda1 during installation
-UUID=0ec50e35-c580-4fbe-9279-afe560e9485b /               ext4    errors=remount-ro 0       1
+/dev/sda1 /               ext4    errors=remount-ro 0       1
 # swap was on /dev/sda2 during installation
-UUID=71a87155-e99c-47ab-b5df-42d8c49947d6 none            swap    sw              0       0
+/dev/sda2 none            swap    sw              0       0
 
 # Other linux systems
 /dev/sda4	/mnt/sda4	ext4    defaults	0       0
