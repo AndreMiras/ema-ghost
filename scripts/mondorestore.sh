@@ -50,7 +50,7 @@ uncompress_afio()
     done
 }
 
-# uncompressing bz2 archives made by mondoarchive
+# uncompressing bz2 archives made by mondoarchive
 uncompress_bz2()
 {
     exec_cmd "cd $output_directory"
@@ -117,7 +117,7 @@ then
     exec_cmd "mount -o loop,ro $iso_diff_backup_path $ISO_MOUNT_DIR"
     uncompress_afio
     uncompress_bz2
-    for file in `cat /home/emabs/ema-ghost/deleted.diff`
+    for file in `cat $partition/deleted.diff`
     do
         rm -rf $file
     done
