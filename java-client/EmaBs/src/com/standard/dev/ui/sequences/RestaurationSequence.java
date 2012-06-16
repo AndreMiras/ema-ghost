@@ -84,12 +84,19 @@ public class RestaurationSequence extends Thread implements Sequence {
 		String res ="";
 		// TODO Auto-generated method stub
 		//chemin complet de la sauvegarde diff
-		String Chemin_sauvaugarde_diff = getPartage() + "/Promos/" + getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom();
+		String Chemin_sauvaugarde_diff = "192.168.1.1:/share/Promos/" + getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom();
 		
-		String cmdMondo = "/usr/local/bin/sc_diff_restore ";
-		cmdMondo += Chemin_sauvaugarde_diff + "/" + getSauvegarde();
+		String cmdMondo ="";
 		
-		System.out.println();
+		cmdMondo += "sudo sc_diff_restore -v -s 192.168.6.1:/partage/ ";
+//		cmdMondo += "-f /mnt/share/isos/testpart-1.iso ";//
+		cmdMondo += "-f /mnt/share/isos/" + getDistribution() + " ";
+//		cmdMondo += "-d /mnt/share/Promos/Promotion1/COURS/testpart-1.iso/guillaume/testpart-1.iso_guillaume_382255112-1.iso"; 
+		cmdMondo += "-d /mnt/share/Promos/";
+		cmdMondo += getPromotion() + "/" + getCours() + "/" +getDistribution() + "/" +getNom() + "/";
+		cmdMondo += getSauvegarde();
+		
+		System.out.println(cmdMondo);
 		res = LanceCmdShell.lancecmd(cmdMondo);
 		System.out.println(res);		//afficahe console
 		((Chargement) service).setTexte(res); //affichage fenetre
