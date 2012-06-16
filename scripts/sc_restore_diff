@@ -2,7 +2,7 @@
 # mondorestore.sh wrapper
 
 verbose=""
-output_directory="/mnt/sda4"
+output_directory="/"
 SHARE_MOUNT_DIR="/mnt/share"
 source emabs_common.sh
 
