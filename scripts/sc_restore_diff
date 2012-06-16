@@ -4,6 +4,7 @@
 verbose=""
 output_directory="/mnt/sda4"
 SHARE_MOUNT_DIR="/mnt/share"
+source emabs_common.sh
 
 usage()
 {
@@ -54,23 +55,6 @@ do
              ;;
      esac
 done
-
-exec_cmd()
-{
-    if [[ ! -z $verbose ]]
-    then
-        echo "Running: $1"
-    fi
-    # TODO: is that the right way to do it?
-    $1
-    if [ $? != 0 ]
-    then
-        echo "!! Error while running: $1 !!"
-        echo "Try rerunning the script in verbose (-v) mode."
-        echo ""
-        exit 1
-    fi
-}
 
 if [[ -z $nfs_server ]] || [[ -z $iso_full_input_path ]] || [[ -z $iso_diff_backup_path ]]
 then
