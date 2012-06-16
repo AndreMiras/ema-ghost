@@ -39,7 +39,7 @@ EOF
 #    done
 #}
 
-## uncompressing bz2 archives made by mondoarchive
+## uncompressing bz2 archives made by mondoarchive
 #uncompress_bz2()
 #{
 #    exec_cmd "cd $tmp_directory"
@@ -120,7 +120,7 @@ exec_cmd "mount -o loop,ro $iso_full_backup_path $ISO_MOUNT_DIR"
 #diff between full iso and hdd
 #get list of full backup files
 # exec_cmd "zcat $ISO_MOUNT_DIR/archives/filelist.full.gz | sort > filelist.full"
-# zcat $ISO_MOUNT_DIR/archives/filelist.full.gz | sort > filelist.full
+# zcat $ISO_MOUNT_DIR/archives/filelist.full.gz | sort > filelist.full
 zcat $ISO_MOUNT_DIR/archives/filelist.full.gz | sort > filelist.full
 # exit
 #exclude useless directories
@@ -133,7 +133,7 @@ find $partition/ -path $partition/media -prune -o -path $partition/mnt -prune -o
 #get list of deleted files
 comm -23 filelist.before filelist.after > deleted.diff
 #copy the list into the right place
-mv deleted.diff /home/emabs/ema-ghost/deleted.diff
+mv deleted.diff /mnt/sda4/deleted.diff
 
 mondoarchive -Oi -I "$partition" -E "$partition/media $partition/mnt $partition/mondo.* $partition/proc $partition/run $partition/sys $partition/tmp $partition/var/tmp" -d $iso_diff_backup_path -s 5g -W -D -p $iso_diff_name
 
