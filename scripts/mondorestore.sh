@@ -7,7 +7,7 @@
 
 
 # directory to mount ISOs to
-ISO_MOUNT_DIR="/mnt/share/"
+ISO_MOUNT_DIR="/mnt/iso/"
 source emabs_common.sh
 
 usage()
