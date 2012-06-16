@@ -3,7 +3,7 @@
 
 SCRIPTS_DEST_DIR="/usr/local/bin"
 SCRIPTS_SUBFOLDER="scripts/"
-SCRIPTS_TO_DEPLOY="archive.sh install_client.sh sc_diff_restore sc_save deploy_client_scripts.sh mondorestore.sh sc_restore sc_save_diff"
+SCRIPTS_TO_DEPLOY="archive.sh install_client.sh sc_restore_diff sc_save deploy_client_scripts.sh mondorestore.sh sc_restore sc_save_diff"
 
 JAVA_SUBFOLDER="java"
 JAVA_TO_DEPLOY="TODO.jar" # TODO: Guillaume
