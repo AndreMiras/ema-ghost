@@ -124,4 +124,4 @@ then
     sleep 1 # workarounds umount: /mnt/iso: device is busy
     exec_cmd "umount $ISO_MOUNT_DIR"
 fi
-
+echo 'Done'
