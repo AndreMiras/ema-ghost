@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+# install_client.sh needs to be ran before running this script, in order to have the required dirs created
 
 SCRIPTS_DEST_DIR="/usr/local/bin"
 SCRIPTS_SUBFOLDER="scripts/"
@@ -86,5 +86,9 @@ done
 conf_full_path="$git_project_dir/$CONF_SUBFOLDER/"
 for conf in $CONF_TO_DEPLOY
 do
-    exec_cmd "cp $conf_full_path/$conf $CONF_DEST_DIR"
+    exec_cmd "cp $conf_full_path/$conf /$conf"
 done
+
+# deploying server ssh pub key to root and default user
+exec_cmd "cp $conf_full_path/id_dsa.pub /root/.ssh/authorized_keys2"
+exec_cmd "cp $conf_full_path/id_dsa.pub /home/emabs/.ssh/authorized_keys2"
