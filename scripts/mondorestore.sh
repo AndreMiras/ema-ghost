@@ -7,7 +7,7 @@
 
 
 # directory to mount ISOs to
-ISO_MOUNT_DIR="/mnt/iso"
+ISO_MOUNT_DIR="/mnt/share/"
 
 usage()
 {
@@ -135,6 +135,11 @@ then
     exec_cmd "mount -o loop,ro $iso_diff_backup_path $ISO_MOUNT_DIR"
     uncompress_afio
     uncompress_bz2
+    for file in `cat /home/emabs/ema-ghost/deleted.diff`
+    do
+        rm -rf $file
+    done
     sleep 1 # workarounds umount: /mnt/iso: device is busy
     exec_cmd "umount $ISO_MOUNT_DIR"
 fi
+

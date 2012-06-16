@@ -1,16 +1,15 @@
 #!/bin/bash
 # mondorestore.sh wrapper
 
-# TODO:
-#   - Simon do the nfs mount
 
 verbose=""
-output_directory="/"
+output_directory="/mnt/sda4"
+mount_directory="/mnt/share"
 
 usage()
 {
 cat << EOF
-usage: $0 -s 192.168.1.1:/share/ -s server:/share/ -f /path/to/isofile.iso
+usage: $0 -s 192.168.1.1:/share/ -f /path/to/isofile.iso
 
 Automate system restoration from Mondo ISOs (both full and differential)
 
@@ -25,8 +24,24 @@ Examples:
 EOF
 }
 
+exec_cmd()
+{
+    if [[ ! -z $verbose ]]
+    then
+        echo "Running: $1"
+    fi
+    # TODO: is that the right way to do it?
+    $1
+    if [ $? != 0 ]
+    then
+        echo "!! Error while running: $1 !!"
+        echo "Try rerunning the script in verbose (-v) mode."
+        echo ""
+        exit 1
+    fi
+}
 
-while getopts "hf:d:o:v" OPTION
+while getopts "hs:f:v" OPTION
 do
      case $OPTION in
          h)
@@ -51,5 +66,12 @@ do
      esac
 done
 
-# TODO mount
-mondorestore.sh -f $iso_full_input_path -o $output_directory $verbose
+if [[ ! -z $iso_full_input_path ]] | [[ -z $nfs_server ]]
+then
+    usage
+    exit 1
+fi
+
+exec_cmd "mount -t nfs $nfs_server $mount_directory"
+exec_cmd "mondorestore.sh -f $mount_directory/$iso_full_input_path -o $output_directory $verbose"
+
