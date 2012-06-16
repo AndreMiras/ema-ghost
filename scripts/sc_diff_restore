@@ -1,9 +1,6 @@
 #!/bin/bash
 # mondorestore.sh wrapper
 
-# TODO:
-#   - Simon do the nfs mount
-
 verbose=""
 output_directory="/mnt/sda4"
 SHARE_MOUNT_DIR="/mnt/share"
@@ -23,8 +20,8 @@ OPTIONS:
    -v      Verbose
 
 Examples:
-    Assuming the ISOs are in 192.168.1.1:/share/isos/:
-    $0 -s 192.168.1.1:/share/ -f /isos/gentoo-1.iso -d /isos/diff-1.iso
+    Assuming the ISOs are in 192.168.1.1:/share/isos/ and /share is mounted in /mnt/share:
+    $0 -s 192.168.1.1:/share/ -f /mnt/share/isos/gentoo-1.iso -d /mnt/share/isos/diff-1.iso
 EOF
 }
 
