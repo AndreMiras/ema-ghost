@@ -6,6 +6,7 @@
 
 verbose=""
 output_directory="/mnt/sda4"
+SHARE_MOUNT_DIR="/mnt/share"
 
 usage()
 {
@@ -22,12 +23,13 @@ OPTIONS:
    -v      Verbose
 
 Examples:
+    Assuming the ISOs are in 192.168.1.1:/share/isos/:
     $0 -s 192.168.1.1:/share/ -f /isos/gentoo-1.iso -d /isos/diff-1.iso
 EOF
 }
 
 
-while getopts "hf:d:o:v" OPTION
+while getopts "hf:d:s:v" OPTION
 do
      case $OPTION in
          h)
@@ -56,5 +58,33 @@ do
      esac
 done
 
-# TODO mount
-mondorestore.sh -f $iso_full_input_path -o $output_directory $verbose -d $iso_diff_backup_path
+exec_cmd()
+{
+    if [[ ! -z $verbose ]]
+    then
+        echo "Running: $1"
+    fi
+    # TODO: is that the right way to do it?
+    $1
+    if [ $? != 0 ]
+    then
+        echo "!! Error while running: $1 !!"
+        echo "Try rerunning the script in verbose (-v) mode."
+        echo ""
+        exit 1
+    fi
+}
+
+if [[ -z $nfs_server ]] || [[ -z $iso_full_input_path ]] || [[ -z $iso_diff_backup_path ]]
+then
+    usage
+    exit 1
+fi
+
+if grep -qs "$SHARE_MOUNT_DIR" /proc/mounts
+then
+    exec_cmd "umount $SHARE_MOUNT_DIR"
+fi
+exec_cmd "mount -t nfs $nfs_server $SHARE_MOUNT_DIR"
+
+mondorestore.sh -f $iso_full_input_path $verbose -d $iso_diff_backup_path -o $output_directory 
