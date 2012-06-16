@@ -4,7 +4,7 @@
 required_packages="openssh-server nfs-common openjdk-6-jre"
 optional_packages="vim screen git"
 all_packages="$required_packages $optional_packages"
-create_dirs="/mnt/sda4 /root/.ssh/ /home/emabs/.ssh/"
+create_dirs="/mnt/sda4 /mnt/share /root/.ssh/ /home/emabs/.ssh/"
 
 apt-get update
 apt-get upgrade -y
