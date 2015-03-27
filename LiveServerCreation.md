@@ -1,0 +1,1 @@
+<pre>sudo  : mondoarchive -Oi -I "/" -E "/media /mnt /mondo.* /mondoarchive /proc /run /sys /tmp /var/tmp" -d "/mondoarchive" -s 4g -p "EmaBS_Server"</pre>
